@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# generated image variants (rebuilt by scripts/resize-images.mjs)
+public/images/
+
+.DS_Store
+.env*.local
+.vercel

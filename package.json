@@ -1,0 +1,41 @@
+{
+  "name": "dezign-what",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/resize-images.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/resize-images.mjs",
+    "build": "next build",
+    "serve": "npx --yes serve out -l 3000",
+    "images": "node scripts/resize-images.mjs --force",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "analyze": "ANALYZE=true next build"
+  },
+  "dependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.14",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "^0.186.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "16.3.8",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.19.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}

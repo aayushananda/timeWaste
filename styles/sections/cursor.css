@@ -1,0 +1,22 @@
+/* One fixed element follows the pointer. A `cursor: url()` image would have
+   zero lag but browsers cap it at 128px and cannot animate it, so a flapping
+   butterfly has to be a real element. */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 38px;
+  height: 38px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-hover) var(--ease-ui);
+  will-change: transform;
+}
+
+.cursor-wing {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}

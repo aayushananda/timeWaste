@@ -1,0 +1,262 @@
+{
+  "categories/branding.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "categories/photography.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "categories/social-media.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "categories/video-editing.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "categories/videography.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "categories/visual-merchandising.jpg": {
+    "width": 800,
+    "height": 1000,
+    "widths": [
+      640
+    ]
+  },
+  "experience/place-1.jpg": {
+    "width": 1000,
+    "height": 750,
+    "widths": [
+      640
+    ]
+  },
+  "experience/place-2.jpg": {
+    "width": 1000,
+    "height": 750,
+    "widths": [
+      640
+    ]
+  },
+  "experience/place-3.jpg": {
+    "width": 1000,
+    "height": 750,
+    "widths": [
+      640
+    ]
+  },
+  "people/portrait.jpg": {
+    "width": 900,
+    "height": 1200,
+    "widths": [
+      640
+    ]
+  },
+  "roles/role-1.jpg": {
+    "width": 1200,
+    "height": 900,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "roles/role-2.jpg": {
+    "width": 1200,
+    "height": 900,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "roles/role-3.jpg": {
+    "width": 1200,
+    "height": 900,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "sakura-tree-cutout.png": {
+    "width": 807,
+    "height": 684,
+    "widths": [
+      640
+    ]
+  },
+  "showreel-poster.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "widths": [
+      640,
+      1080,
+      1920
+    ]
+  },
+  "skills/art-director.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/content-creator.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/editor.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/graphic-designer.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/illustrator.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/mentor.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/model.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/photographer.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/videographer.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "skills/writer.jpg": {
+    "width": 600,
+    "height": 800,
+    "widths": [
+      600
+    ]
+  },
+  "works/dream-a-dozen.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/lorem-brand-system.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/lorem-campaign-posts.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/lorem-edit-reel.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/lorem-portraits.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/lorem-window-display.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/nike-ad-dolly.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/sachee-sells-creative.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/sachee-sells-event.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  },
+  "works/wework-eka-fellowship.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      640,
+      1080
+    ]
+  }
+}

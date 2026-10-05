@@ -1,0 +1,50 @@
+.contact-inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.contact-mark {
+  width: clamp(110px, 18vw, 180px);
+  color: var(--ink);
+}
+
+.contact-mark svg {
+  width: 100%;
+  height: auto;
+}
+
+.contact-links {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 24rem;
+}
+
+.contact-link {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .contact-links {
+    position: relative;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 1rem 2.5rem;
+    max-width: none;
+  }
+
+  /* Connector lines from the butterfly out to the links; hidden on phones,
+     where the four links simply stack. */
+  .contact-links::before {
+    content: '';
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    width: var(--stroke);
+    height: 1.5rem;
+    background: var(--ink);
+    opacity: 0.35;
+  }
+}

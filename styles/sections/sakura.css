@@ -1,0 +1,90 @@
+.sakura-break {
+  /* One width drives both the tree and the room the quote keeps clear of it.
+     The tree stays within two-fifths of the screen and two-thirds of its
+     height; 807 / 684 is the cutout's aspect ratio. */
+  --tree-w: min(40vw, calc(66svh * 807 / 684), 640px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Flipped so the flat, cropped frame edge sits against the right of the
+   screen; the translate bleeds that edge just off it. */
+.sakura-tree {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: var(--tree-w);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.sakura-tree img {
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1) translateX(-1.5%);
+}
+
+/* Petals drift above the tree but behind the quote, which stays readable. */
+.petal-field {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* The quote centres in the open ground left of the tree, held within 68rem
+   of it so it never drifts off on its own on a wide screen. */
+.sakura-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding-left: max(var(--gutter), calc(100% - var(--tree-w) - 68rem));
+  padding-right: var(--tree-w);
+}
+
+.sakura-quote-text {
+  /* Just wider than "Fall seven times," so the proverb breaks at its comma. */
+  max-width: 8em;
+  font-family: var(--font-display);
+  /* Width or height, whichever is tighter, so a short laptop screen fits it
+     as comfortably as a tall one. */
+  font-size: clamp(2.25rem, min(4.8vw, 10svh), 5rem);
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 105;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.sakura-quote-source {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.1rem);
+  font-variation-settings:
+    'wght' 500,
+    'wdth' 95;
+  letter-spacing: 0.02em;
+  opacity: 0.6;
+}
+
+/* Portrait screens stack: the tree spreads along the bottom and the quote
+   centres in the ground above it. */
+@media (orientation: portrait) {
+  .sakura-break {
+    --tree-w: min(84vw, calc(42svh * 807 / 684), 560px);
+  }
+
+  .sakura-inner {
+    padding-inline: var(--gutter);
+    padding-bottom: calc(var(--tree-w) * 684 / 807);
+  }
+
+  .sakura-quote-text {
+    font-size: clamp(2.25rem, 9.6vw, 4.25rem);
+  }
+}

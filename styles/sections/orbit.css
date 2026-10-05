@@ -1,0 +1,135 @@
+/* Orbit rings: photo cards on a tilted 3D orbit around huge muted words.
+   The words and the cards share one stacking context, so a computed z-index
+   puts the near half of the ring in front of the words and the far half
+   behind them. */
+
+.orbit {
+  --card-w: clamp(88px, 13vw, 210px);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: clamp(420px, 74svh, 720px);
+  isolation: isolate;
+}
+
+.orbit-word {
+  position: relative;
+  /* Between the far half of the ring (0 to 24) and the near half (30 up). */
+  z-index: 25;
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  font-size: clamp(4.5rem, 1rem + 22vw, 22rem);
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 116;
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+  /* Muted, so the photos carry the colour and the words read as a ground. */
+  color: color-mix(in srgb, var(--ink) 36%, var(--bg));
+  transition: color var(--t-page) var(--ease-ui);
+  pointer-events: none;
+  user-select: none;
+}
+
+.orbit-word span {
+  display: block;
+}
+
+.orbit-track {
+  /* No transform, perspective or z-index here: any of them would trap the
+     cards in their own stacking context, away from the words. */
+  position: absolute;
+  inset: 0;
+}
+
+.orbit-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-w);
+  aspect-ratio: 3 / 4;
+  /* Centred on the ring's middle, which is also every card's transform
+     origin, so the cards share one vanishing point. */
+  margin-left: calc(var(--card-w) / -2);
+  margin-top: calc(var(--card-w) * -2 / 3);
+  opacity: 0;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.orbit-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.orbit-figure picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+.orbit-label {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  max-width: calc(100% - 16px);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: clamp(0.625rem, 0.5rem + 0.35vw, 0.8125rem);
+  font-variation-settings:
+    'wght' 500,
+    'wdth' 92;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: lowercase;
+  transition:
+    background-color var(--t-page) var(--ease-ui),
+    color var(--t-page) var(--ease-ui);
+}
+
+.orbit-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-card);
+}
+
+/* On a phone the words have to stay readable through the cards, so they
+   run near the full width while the cards shrink and the ring tightens. */
+@media (max-width: 639px) {
+  .orbit {
+    --card-w: 23vw;
+    min-height: 420px;
+  }
+
+  .orbit-word {
+    font-size: 34vw;
+  }
+}
+
+/* Moving targets are hard to hit, so a plain row of links backs the ring. */
+.orbit-fallback {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+  margin-top: 1rem;
+}

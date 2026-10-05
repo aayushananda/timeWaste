@@ -1,0 +1,15 @@
+/* The ring's side cards reach past the content column; clip rather than let
+   the page scroll sideways. */
+.works {
+  overflow-x: clip;
+}
+
+@media (max-width: 639px) {
+  /* The category links wrap two to a row, and a long one takes a row alone
+     rather than breaking inside its pill. */
+  .works .orbit-fallback .chip {
+    padding-inline: 0.875rem;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+}

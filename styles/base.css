@@ -1,0 +1,278 @@
+/* Base element styles and the primitives every section composes from. */
+/* Map the tokens into Tailwind so `bg-blush` and `var(--blush)` are the same
+   value. `inline` keeps the reference, rather than copying it at build. */
+@theme inline {
+  --color-blush: var(--blush);
+  --color-ink: var(--ink);
+  --color-plum: var(--plum);
+  --color-berry: var(--berry);
+  --color-petal: var(--petal);
+  --color-ivory: var(--ivory);
+  --color-nude: var(--nude);
+  --color-noir: var(--noir);
+  --color-page: var(--bg);
+  --color-focus: var(--focus);
+
+  --font-display: var(--font-fredoka), ui-rounded, 'Segoe UI Rounded', system-ui, sans-serif;
+  --font-script: var(--font-caveat), 'Comic Sans MS', cursive;
+
+  --radius-pill: var(--radius-pill);
+  --radius-box: var(--radius-box);
+  --radius-photo: var(--radius-photo);
+
+  --ease-ui: var(--ease-ui);
+}
+
+/* Base -------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Hash links from the launchpad land below the floating bar. */
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-variation-settings: 'wght' 400;
+  transition:
+    background-color var(--t-page) var(--ease-ui),
+    color var(--t-page) var(--ease-ui);
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: var(--stroke) solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--berry);
+  color: #fff;
+}
+
+/* Primitives -------------------------------------------------------------- */
+
+/* One full-screen slide: the unit the whole home page is drawn in. */
+.slide {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(4rem, 8vh, 7rem);
+  /* Sections stay transparent so one body transition repaints the page. */
+  background: transparent;
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* The big lowercase slide words, echoing the handwritten sketch. */
+.slide-word {
+  font-size: var(--text-slide);
+  font-variation-settings:
+    'wght' 500,
+    'wdth' 110;
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+.section-title {
+  font-size: var(--text-title);
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 100;
+  line-height: 1.1;
+}
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 90;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* Monoline chip, the logo's stroke weight. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.125rem;
+  border: var(--stroke) solid currentColor;
+  border-radius: var(--radius-pill);
+  font-variation-settings: 'wght' 500;
+  transition:
+    background-color var(--t-hover) var(--ease-ui),
+    color var(--t-hover) var(--ease-ui);
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+}
+
+/* Viewfinder corner marks: media framed the way a camera frames it. */
+.viewfinder {
+  position: relative;
+}
+
+.viewfinder::before,
+.viewfinder::after,
+.viewfinder > .viewfinder-foot::before,
+.viewfinder > .viewfinder-foot::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: var(--stroke) solid currentColor;
+  pointer-events: none;
+}
+
+.viewfinder::before {
+  top: -8px;
+  left: -8px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.viewfinder::after {
+  top: -8px;
+  right: -8px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.viewfinder > .viewfinder-foot::before {
+  bottom: -8px;
+  left: -8px;
+  border-right: 0;
+  border-top: 0;
+}
+
+.viewfinder > .viewfinder-foot::after {
+  bottom: -8px;
+  right: -8px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.photo {
+  border-radius: var(--radius-photo);
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hide the native cursor only where the butterfly actually replaces it. */
+body[data-butterfly='on'],
+body[data-butterfly='on'] a,
+body[data-butterfly='on'] button {
+  cursor: none;
+}
+
+/* Text fields and high-contrast mode keep the real cursor. */
+body[data-butterfly='on'] :is(input, textarea, select) {
+  cursor: auto;
+}
+
+@media (forced-colors: active) {
+  body[data-butterfly='on'],
+  body[data-butterfly='on'] a,
+  body[data-butterfly='on'] button {
+    cursor: auto;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

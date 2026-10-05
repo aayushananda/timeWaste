@@ -1,0 +1,98 @@
+/* Single source of truth for the design system. Raw brand values first, then the
+   scroll-journey palettes that `html[data-theme]` switches between.
+
+   Palette rule: pinks, warm whites and nudes, and deep darks only. No blue,
+   green or yellow anywhere, accents included. */
+
+:root {
+  /* Core brand ------------------------------------------------------------ */
+  --blush: #ffbde3;
+  --ink-black: #000000;
+  --plum: #2b1630;
+  /* "You can act": focus rings, selection, links in write-ups. A deep berry
+     keeps the accent inside the pink family. */
+  --berry: #8c1d4f;
+
+  /* Scroll-journey grounds ------------------------------------------------ */
+  --petal: #ffe4f1;
+  --ivory: #fbf5ef;
+  --nude: #efdcd0;
+  --noir: #150c12;
+
+  /* Live page colors, repainted by the scroll journey --------------------- */
+  --bg: var(--blush);
+  --ink: var(--ink-black);
+  --focus: var(--berry);
+
+  /* Shape ---------------------------------------------------------------- */
+  --stroke: 2.5px;
+  --radius-pill: 999px;
+  --radius-box: 28px;
+  --radius-card: 12px;
+  --radius-photo: 6px;
+
+  /* Layout --------------------------------------------------------------- */
+  --content: 1200px;
+  --gutter: 24px;
+
+  /* Motion --------------------------------------------------------------- */
+  --ease-ui: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-hover: 160ms;
+  --t-nav: 220ms;
+  --t-page: 700ms;
+
+  /* Type ----------------------------------------------------------------- */
+  --text-body: 17px;
+  --leading-body: 1.55;
+  --text-title: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem); /* 28 -> 40px */
+  --text-slide: clamp(4rem, 1.5rem + 11vw, 13rem); /* 64 -> 208px */
+  --measure: 65ch;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 48px;
+  }
+}
+
+/* Scroll journey. Each home slide declares one of these names; an observer
+   copies the name of whichever slide owns the middle of the viewport onto
+   <html>, and `body` transitions --bg and --ink over --t-page. */
+
+html[data-theme='blush'] {
+  --bg: var(--blush);
+  --ink: var(--ink-black);
+  --focus: var(--berry);
+}
+
+html[data-theme='petal'] {
+  --bg: var(--petal);
+  --ink: var(--ink-black);
+  --focus: var(--berry);
+}
+
+html[data-theme='ivory'] {
+  --bg: var(--ivory);
+  --ink: var(--ink-black);
+  --focus: var(--berry);
+}
+
+html[data-theme='nude'] {
+  --bg: var(--nude);
+  --ink: var(--ink-black);
+  --focus: var(--berry);
+}
+
+/* Dark slides flip the ink to pink. Berry is too dark to ring on them, so the
+   focus ring follows the ink instead. */
+html[data-theme='plum'] {
+  --bg: var(--plum);
+  --ink: var(--blush);
+  --focus: var(--blush);
+}
+
+html[data-theme='noir'] {
+  --bg: var(--noir);
+  --ink: var(--blush);
+  --focus: var(--blush);
+}

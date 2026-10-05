@@ -1,0 +1,18 @@
+/* The ring's side cards reach past the content column; clip rather than let
+   the page scroll sideways. */
+.about {
+  overflow-x: clip;
+}
+
+@media (max-width: 639px) {
+  /* Ten cards on a phone-sized ring: narrower, so the words still read. */
+  .about .orbit {
+    --card-w: 19vw;
+  }
+}
+
+.about-bio {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

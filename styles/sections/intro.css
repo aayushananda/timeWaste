@@ -1,0 +1,67 @@
+/* Intro overlay. Hidden by default so it only ever appears when the inline
+   head script has decided it should, before first paint. */
+
+.intro {
+  display: none;
+}
+
+html[data-intro='play'] .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  /* The video's own pink, so compression shift never reads as a seam. */
+  background: var(--blush);
+  transition: opacity 420ms var(--ease-ui);
+}
+
+.intro[data-state='leaving'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-stage {
+  position: relative;
+  width: min(100vw, 100svh, 720px);
+  aspect-ratio: 1;
+}
+
+.intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Feather the square into the pink ground. */
+  mask-image: radial-gradient(circle at 50% 50%, #000 70%, transparent 92%);
+}
+
+.intro-skip {
+  position: absolute;
+  /* Low on the screen, inside thumb reach on a phone. */
+  bottom: max(2rem, env(safe-area-inset-bottom, 0px) + 1.5rem);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 1;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border: var(--stroke) solid var(--ink-black);
+  border-radius: var(--radius-pill);
+  color: var(--ink-black);
+  font-variation-settings: 'wght' 500;
+  transition:
+    background-color var(--t-hover) var(--ease-ui),
+    color var(--t-hover) var(--ease-ui);
+}
+
+@media (hover: hover) {
+  .intro-skip:hover {
+    background: var(--ink-black);
+    color: var(--blush);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro='play'] .intro {
+    transition: none;
+  }
+}

@@ -1,0 +1,228 @@
+/* /works, /works/{category} and /works/{category}/{slug}. These are documents
+   rather than slides, so they scroll normally instead of snapping to 100svh. */
+
+.work-index-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .work-index-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .work-index-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.work-index-card {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.work-index-card .viewfinder {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.work-index-title {
+  font-size: 1.375rem;
+  font-variation-settings: 'wght' 600;
+  text-transform: lowercase;
+}
+
+.work-index-blurb {
+  font-size: 0.9375rem;
+  opacity: 0.75;
+}
+
+/* Category: one chapter per shoot. */
+.category,
+.work {
+  padding-block: 7rem 5rem;
+}
+
+.category-head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 3.5rem;
+}
+
+.category-chapters {
+  display: grid;
+  gap: 4.5rem;
+}
+
+.category-chapter-link {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .category-chapter-link {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2.5rem;
+  }
+
+  /* Alternate sides, so the scroll does not read as a single column. */
+  .category-chapter:nth-child(even) .category-chapter-link > :first-child {
+    order: 2;
+  }
+}
+
+.category-chapter-link .viewfinder {
+  color: var(--ink);
+}
+
+.category-chapter-text {
+  display: grid;
+  gap: 0.625rem;
+  justify-items: start;
+}
+
+/* Shoot page. */
+.work-head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.work-title {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+}
+
+.work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 0.5rem 0 0;
+}
+
+.work-meta dt {
+  font-size: 0.75rem;
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 90;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.work-meta dd {
+  margin: 0;
+  font-variation-settings: 'wght' 500;
+}
+
+.work-media {
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+
+.work-media .photo,
+.preview-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.youtube-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.youtube-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.youtube-play svg {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  padding: 1.125rem;
+  background: var(--bg);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-pill);
+}
+
+.youtube-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius-photo);
+}
+
+.work-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.work-body :is(h2, h3) {
+  font-size: var(--text-title);
+  font-variation-settings: 'wght' 600;
+  margin-top: 1rem;
+}
+
+.work-body a {
+  color: var(--focus);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.work-credits {
+  margin-top: 3rem;
+}
+
+.work-credits ul {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  max-width: 32rem;
+}
+
+.work-credits li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: var(--stroke) solid color-mix(in srgb, var(--ink) 20%, transparent);
+}
+
+.work-credit-role {
+  opacity: 0.65;
+}
+
+.work-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+/* 404 */
+.not-found-note {
+  margin-top: 1rem;
+}
+
+.not-found-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}

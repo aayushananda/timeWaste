@@ -1,0 +1,99 @@
+.experience-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .experience-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Split box: text on top, image below, as the sketch draws it. */
+.experience-box {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  overflow: hidden;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-box);
+  transition: transform var(--t-hover) var(--ease-ui);
+}
+
+@media (hover: hover) {
+  .experience-box {
+    transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-box {
+    transform: none;
+  }
+}
+
+.experience-head {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1.25rem 1.25rem 1.125rem;
+}
+
+.experience-head h3 {
+  font-size: 1.25rem;
+  font-variation-settings: 'wght' 600;
+}
+
+.experience-role {
+  font-size: 0.9375rem;
+}
+
+.experience-period {
+  font-size: 0.8125rem;
+  opacity: 0.65;
+}
+
+.experience-summary {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.experience-photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-top: var(--stroke) solid var(--ink);
+}
+
+.achievements {
+  margin-top: 3rem;
+  scroll-margin-top: 6rem;
+}
+
+.achievements ul {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  max-width: 44rem;
+}
+
+.achievements li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-bottom: 0.625rem;
+  border-bottom: var(--stroke) solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.achievements-title {
+  font-variation-settings: 'wght' 500;
+}
+
+.achievements-meta {
+  font-size: 0.875rem;
+  opacity: 0.65;
+}

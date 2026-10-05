@@ -1,0 +1,14 @@
+/* The one shared WebGL canvas, fixed behind the page. drei's View scissors it
+   to each 3D section's box. */
+
+.scene-canvas {
+  position: fixed !important;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+}
