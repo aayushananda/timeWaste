@@ -1,0 +1,264 @@
+/* Card wheel: photo cards riding a wide wheel whose hub sits below the slide.
+   Five are on show at a time; the rest turn away round the bottom.
+
+   Everything here is measured in card heights (--card-h), the unit
+   CardWheel.tsx works in. The hub sits 2.35 card heights below the top, and
+   the cards' bottom edges never come nearer to it than 1.25, so the dial
+   inside that radius (ring, pointer, words, buttons) is never covered. */
+
+.wheel {
+  --card-h: clamp(240px, 18vw + 6rem, 400px);
+  --card-w: calc(var(--card-h) * 0.75);
+  position: relative;
+  height: calc(var(--card-h) * 1.95);
+  /* Sideways drags turn the wheel; vertical swipes still scroll the page. */
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Phones: bigger cards, so three read clearly and the outer two peek in. */
+@media (max-width: 639px) {
+  .wheel {
+    --card-h: 52vw;
+  }
+}
+
+/* Cards -------------------------------------------------------------------- */
+
+.wheel-cards {
+  /* Full bleed, centred on the stage, so the outer cards run off the edges
+     of the screen rather than being cut off inside it. */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  z-index: 1;
+  width: 100vw;
+  overflow: clip;
+  pointer-events: none;
+  /* The wheel turns away into the page at the bottom. */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--card-h) * 0.5), transparent);
+}
+
+.wheel-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--card-w);
+  height: var(--card-h);
+  opacity: 0;
+  pointer-events: auto;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.wheel-card img {
+  -webkit-user-drag: none;
+}
+
+/* A print: white mat, soft plum shadow so neighbours stay distinct. */
+.wheel-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 6px;
+  border-radius: calc(var(--radius-card) + 4px);
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(43 22 48 / 0.08),
+    0 24px 40px -22px rgb(43 22 48 / 0.5);
+}
+
+.wheel-figure picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wheel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+/* A monoline chip breaking the card's top edge. */
+.wheel-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  max-width: calc(100% - 16px);
+  translate: -50% -50%;
+  padding: 0.15rem 0.7rem;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: clamp(0.6875rem, 0.55rem + 0.35vw, 0.875rem);
+  font-variation-settings:
+    'wght' 500,
+    'wdth' 92;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-transform: lowercase;
+  transition:
+    background-color var(--t-page) var(--ease-ui),
+    color var(--t-page) var(--ease-ui);
+}
+
+/* Dial --------------------------------------------------------------------- */
+
+.wheel-dial {
+  /* Full bleed like the cards, so the turn buttons are never clipped. */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  z-index: 2;
+  width: 100vw;
+  overflow: clip;
+  pointer-events: none;
+}
+
+/* A dashed ring concentric with the wheel, just inside the cards' bottom
+   edges: radius 1.15, so its top is 1.2 card heights down. It turns with
+   the cards; only its upper arc shows. */
+.wheel-ring-frame {
+  position: absolute;
+  top: calc(var(--card-h) * 1.2);
+  left: 50%;
+  width: calc(var(--card-h) * 2.3);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  mask-image: linear-gradient(to bottom, #000 12%, transparent 26%);
+}
+
+.wheel-ring {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed var(--ink);
+  border-radius: 50%;
+  opacity: 0.45;
+  will-change: transform;
+}
+
+/* Points up at the front card, from the top of the ring. */
+.wheel-pointer {
+  --size: clamp(10px, calc(var(--card-h) * 0.045), 16px);
+  position: absolute;
+  top: calc(var(--card-h) * 1.2 - var(--size) * 0.87 - 3px);
+  left: 50%;
+  width: var(--size);
+  height: calc(var(--size) * 0.87);
+  translate: -50% 0;
+  background: var(--ink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.wheel-words {
+  position: absolute;
+  top: calc(var(--card-h) * 1.33);
+  right: 0;
+  left: 0;
+  display: grid;
+}
+
+/* The heading and its window copies share one grid cell, so their letters
+   land on exactly the same pixels. Sized to sit inside the ring. */
+.wheel-word {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-size: calc(var(--card-h) * 0.25);
+  font-variation-settings:
+    'wght' 600,
+    'wdth' 116;
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  text-align: center;
+  text-transform: lowercase;
+  white-space: nowrap;
+  /* Muted, so the photos carry the colour and the words read as a ground. */
+  color: color-mix(in srgb, var(--ink) 36%, var(--bg));
+  transition: color var(--t-page) var(--ease-ui);
+}
+
+/* The letterform window: the front card's photo, seen through the letters
+   and outlined at the logo's stroke weight.
+
+   The outline is a solid ink copy stroked at twice the weight, with the photo
+   laid exactly over its letters, so only the outer half of the stroke shows:
+   the cloud trick from the contact slide. Stroking the photo layer itself
+   would trace every contour the font overlaps inside a letter, such as the
+   seam where the stem of the b meets its bowl. */
+.wheel-outline,
+.wheel-window {
+  opacity: 0;
+  /* Hiding waits for an incoming layer to finish fading in on top. */
+  transition: opacity 450ms var(--ease-ui) 450ms;
+}
+
+.wheel-outline {
+  color: var(--ink);
+  -webkit-text-stroke: calc(var(--stroke) * 2) var(--ink);
+}
+
+.wheel-window {
+  color: transparent;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.wheel-outline.is-shown,
+.wheel-window.is-shown {
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.wheel-window.is-front {
+  z-index: 1;
+}
+
+/* Turn buttons sit on the ring's ends, either side of the words. */
+.wheel-turn {
+  --size: clamp(40px, calc(var(--card-h) * 0.12), 48px);
+  position: absolute;
+  top: calc(var(--card-h) * 1.495 - var(--size) / 2);
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+  border: var(--stroke) solid var(--ink);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--ink);
+  pointer-events: auto;
+  transition:
+    background-color var(--t-hover) var(--ease-ui),
+    color var(--t-hover) var(--ease-ui);
+}
+
+.wheel-turn--prev {
+  left: calc(50% - var(--card-h) * 0.77 - var(--size) / 2);
+}
+
+.wheel-turn--next {
+  left: calc(50% + var(--card-h) * 0.77 - var(--size) / 2);
+}
+
+@media (hover: hover) {
+  .wheel-turn:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel-outline,
+  .wheel-window {
+    transition: none;
+  }
+}

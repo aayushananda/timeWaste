@@ -86,7 +86,6 @@ export function Contact() {
           <a href={contactModel.licenseUrl} target="_blank" rel="noopener noreferrer">
             {contactModel.license}
           </a>
-          , skin tone lightened
         </p>
       </div>
     </section>

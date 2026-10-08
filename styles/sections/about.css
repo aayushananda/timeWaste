@@ -1,14 +1,7 @@
-/* The ring's side cards reach past the content column; clip rather than let
-   the page scroll sideways. */
+/* The wheel runs full bleed and its outer cards run off the screen; clip
+   rather than let the page scroll sideways. */
 .about {
   overflow-x: clip;
-}
-
-@media (max-width: 639px) {
-  /* Ten cards on a phone-sized ring: narrower, so the words still read. */
-  .about .orbit {
-    --card-w: 19vw;
-  }
 }
 
 .about-bio {

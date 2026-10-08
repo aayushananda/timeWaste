@@ -1,21 +1,26 @@
+import { CardWheel } from '@/components/ui/CardWheel';
 import { Img } from '@/components/ui/Img';
-import { OrbitRing } from '@/components/ui/OrbitRing';
 import { site, skills } from '@/lib/site';
 
 export function About() {
   return (
     <section id="about" className="slide about" data-theme="ivory">
       <div className="shell">
-        {/* Ten skill cards orbiting the words; it leans the opposite way to
-            the works ring further down. */}
-        <OrbitRing lines={['about', 'me']} lean={-1}>
+        {/* Her ten skills on a wide wheel, five on show at a time; the works
+            ring further down keeps the orbit. */}
+        <CardWheel title="about me" itemName="skill">
           {skills.map((skill) => (
-            <figure key={skill.label} className="orbit-figure">
-              <Img src={skill.image} alt="" sizes="300px" className="orbit-img" />
-              <figcaption className="orbit-label">{skill.label}</figcaption>
+            <figure key={skill.label} className="wheel-figure">
+              <Img
+                src={skill.image}
+                alt=""
+                sizes="(min-width: 640px) 300px, 40vw"
+                className="wheel-img"
+              />
+              <figcaption className="wheel-label">{skill.label}</figcaption>
             </figure>
           ))}
-        </OrbitRing>
+        </CardWheel>
 
         <div className="about-bio measure">
           {site.bio.map((paragraph) => (

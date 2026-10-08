@@ -131,7 +131,7 @@ All content lives in `content/` as Markdown with frontmatter. `lib/content.ts` r
 | image | image | yes | Bottom half of the box |
 | order | number | no | Manual sort, default 0 |
 
-**Site data.** `lib/site.ts` holds what appears once: name, tagline, quote, contact links, the ten skills on the about ring, the six categories with their page colors, and the courses and achievements list.
+**Site data.** `lib/site.ts` holds what appears once: name, tagline, quote, contact links, the ten skills on the about wheel, the six categories with their page colors, and the courses and achievements list.
 
 ## Placeholder content
 
@@ -233,7 +233,8 @@ Seven interactions carry the site's personality. Each has one job, runs only whi
 | Question-mark field | Hero | R3F with custom drift | One still frame |
 | Scroll color journey | Whole home page | Observer plus CSS transition | Colors switch instantly |
 | Butterfly cursor | Pointer devices | One element moved with transforms | Follows without flapping |
-| Orbit rings | About me (horizontal), My works (vertical) | CSS 3D transforms set per frame | Static arrangement |
+| Card wheel | About me | Transforms set per frame, spring settle | Still; no turning by itself, every turn snaps |
+| Orbit ring | My works | CSS 3D transforms set per frame | Static arrangement |
 | Sakura petals | Quote | Canvas 2D particles | A still scatter |
 | Card tilt | Launchpad, experience | Pointer-driven CSS variables | Off |
 
@@ -249,9 +250,17 @@ Seven interactions carry the site's personality. Each has one job, runs only whi
 - Trade-off: a CSS `cursor: url()` image has zero lag, but browsers cap it at 128 px and cannot animate it, so a detailed flapping butterfly needs the element approach. The cost is up to one frame of lag.
 - The placeholder is a blue butterfly; her detailed image replaces `public/cursor/butterfly.svg` with no code change.
 
-**Orbit rings.** One component, two modes, matching the two references:
+**Card wheel (about me).** Replaced the about ring, which repeated the works ring. Modelled on a reference the client shared: big cards on a wide wheel whose hub sits below the slide.
 
-- About me: a horizontal ring (spinning about the vertical axis) of ten skill cards around the words about me. Cards face outward, turn edge-on at the sides and fade as they pass behind the words.
+- Ten skill cards, 28° apart on a wheel 1.75 card heights in radius, so five show at a time (three on phones) and neighbours barely overlap. The front card stands upright; the rest turn away round the rim and fade out past about 66°.
+- The hub carries a dial: a dashed ring that turns with the cards, a pointer at the front card, the words "about me", and previous and next buttons on the ring's ends.
+- Entrance: the wheel turns in from the right as the slide scrolls into view, scrubbed by scroll.
+- Idle, it turns to the next card every 3.2 s and settles with a slight overshoot, like a dial clicking into place. Hover pauses it; any deliberate turn stops it for good.
+- Drag or flick sideways (mouse or touch) to turn it; it settles on the nearest card. Click or tap a side card to bring it to the front; hovering lifts a card. Arrow keys work while a turn button has focus, and a polite live region names the front card after a deliberate turn.
+- The words at the hub are a window onto the front card's photo, outlined at the logo's stroke weight.
+
+**Orbit ring (my works).**
+
 - My works: a vertical ring (spinning about the horizontal axis) of the six category cards around my works, on the dark plum slide. Cards keep facing the viewer and alternate left and right of the words.
 - Entrance: as the section scrolls in, cards swoop in on a spiral, from farther out, rotated and smaller, staggered. The entrance is scrubbed by scroll, so scrolling back reverses it.
 - Spin speeds up briefly with scroll speed; hover or keyboard focus slows the ring to a stop so a card can be clicked.
@@ -298,7 +307,7 @@ Desktop-first for layout concept, mobile has stacked reflow rules per section. B
 - **Hero**: the logo lockup scales to about 70% of the width; 6 question marks instead of 9.
 - **Showreel**: full-width 16:9 frame.
 - **Launchpad**: the photo moves to the top as a 160 px circle; the six boxes become a two-column grid below it.
-- **About me**: the ring keeps spinning at a smaller radius with narrower cards; the bio follows below.
+- **About me**: the cards grow to half the screen's width, so three show; swipe sideways or tap a side card to turn the wheel. The bio follows below.
 - **Current roles**: three columns become one.
 - **Work experience**: the split boxes stack, each keeping text on top and image below; courses and achievements follow as a list.
 - **My works**: the vertical ring shrinks to fit; the category links below wrap to two columns.
@@ -531,7 +540,7 @@ Consciously not built yet, each with the trigger for revisiting it.
 3. Courses and achievements is planned as a short list at the end of the experience slide, so the sketch's sixth launchpad box has a target. Keep it, or drop the box?
 4. Is V.M. visual merchandising? Assumed so for the category name.
 5. The hero uses the butterfly lockup so the intro hands off without a jump. Should the question-mark wordmark appear anywhere?
-6. The references did not say where the rings go. The horizontal ring is placed on about me and the vertical ring on my works; move either if you pictured them elsewhere.
+6. The references did not say where the rings go. The ring is on my works; about me now uses the card wheel instead.
 
 ## Sources
 
