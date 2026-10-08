@@ -10,6 +10,9 @@
 /media/*
   Cache-Control: public, max-age=2592000
 
+/models/*
+  Cache-Control: public, max-age=2592000
+
 /*.svg
   Cache-Control: public, max-age=2592000
 

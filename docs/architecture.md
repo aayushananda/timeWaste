@@ -210,6 +210,8 @@ Glossy black question marks drift around the logo like objects in zero gravity. 
 
 **One canvas for every 3D section.** A single R3F canvas sits fixed behind the page, and drei's View draws into the hero's box and into any later 3D section. That is one WebGL context instead of one per section.
 
+**Contact daydream.** The contact slide's 3D section is a kid on a bean bag ("A little coffee in the evening" by Tijerín Art Studio, CC BY 4.0, credited under the scene), with the four links floating around it as outlined clouds. The Sketchfab file was cut from 7.9 MB to 1.1 MB with gltf-transform (meshopt geometry, WebP textures); the meshopt decoder ships inside three-stdlib, so nothing is fetched from a CDN. The model is fetched only once the visitor scrolls within a screen of it. Its materials skip filmic tone mapping so the painted browns stay brown, the skin is lifted 1.5x in linear light, and the bean bag gets a little emissive to read white.
+
 **Guardrails.**
 
 - 9 marks on desktop, 6 under 640 px; pixel ratio capped at 2.
@@ -300,7 +302,7 @@ Desktop-first for layout concept, mobile has stacked reflow rules per section. B
 - **Current roles**: three columns become one.
 - **Work experience**: the split boxes stack, each keeping text on top and image below; courses and achievements follow as a list.
 - **My works**: the vertical ring shrinks to fit; the category links below wrap to two columns.
-- **Contact**: the four links stack under the butterfly and the connector lines hide.
+- **Contact**: the four cloud links zig-zag, two above the kid and two below, instead of sitting at the corners.
 - **Quote**: type scales with the viewport and the petal count drops with the slide's area.
 - **Cursor**: never shown on touch devices.
 
@@ -430,17 +432,17 @@ The brand already sets the core: baby pink #FFBDE3 and black from the logo, a ro
 
 | Token | Hex | Role |
 | --- | --- | --- |
-| blush | #FFBDE3 | Brand pink sampled from the logo and intro; hero, launchpad, contact |
+| blush | #FFBDE3 | Brand pink sampled from the logo and intro; hero, launchpad |
 | ink | #000000 | Logo black; text and lines on light slides |
 | plum | #2B1630 | Dark slide behind the works ring |
 | butterfly blue | #2F5BFF | Interaction only: the cursor and keyboard focus rings (at least 3:1 on every slide) |
-| petal | #FFE4F1 | Showreel |
+| petal | #FFE4F1 | Showreel, contact |
 | lilac | #E4D6FF | About me |
 | butter | #FFF1B8 | Current roles |
 | mint | #CDEFE0 | Work experience |
 | night | #1B1230 | Quote with sakura |
 
-**Scroll journey.** Hero and intro blush, showreel petal, launchpad blush, about me lilac, current roles butter, work experience mint, my works plum with pink ink, contact blush, quote night with pink ink.
+**Scroll journey.** Hero and intro blush, showreel petal, launchpad blush, about me lilac, current roles butter, work experience mint, my works plum with pink ink, contact petal, quote night with pink ink.
 
 **Type.**
 

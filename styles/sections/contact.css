@@ -1,50 +1,313 @@
+/* Contact: a daydream. The kid on the bean bag is drawn by the shared canvas
+   into .contact-model; the four links float around it as outlined clouds. */
+
+.contact {
+  --cloud-ratio: 0.612; /* the cloud viewBox, 164 / 268 */
+  --cloud-w: min(62vw, 250px);
+  --cloud-h: calc(var(--cloud-w) * var(--cloud-ratio));
+  /* Height of the kid's box. The camera fits the bag to the box's width, so
+     a box wider than it is tall leaves room for the cast shadow. */
+  --model: min(76vw, 400px);
+  overflow: hidden;
+}
+
 .contact-inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   justify-items: center;
-  gap: 1.5rem;
+  gap: clamp(1rem, 3vh, 2rem);
   text-align: center;
 }
 
-.contact-mark {
-  width: clamp(110px, 18vw, 180px);
-  color: var(--ink);
+/* Shapes for every cloud on the slide, referenced by <use>. Not display:none,
+   which would stop some engines resolving the reference. */
+.cloud-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-.contact-mark svg {
+/* Scene ------------------------------------------------------------------- */
+
+/* Phones: two clouds above the kid and two below, zig-zagging. Each second
+   cloud drops far enough that its puffs clear the first one's text. */
+.contact-scene {
+  --stagger: calc(var(--cloud-h) * 0.85);
+  --band: calc(var(--cloud-h) + var(--stagger));
+  /* The box has air above the hair and below the bag; the bands tuck in. */
+  --tuck: calc(var(--cloud-h) * 0.2);
+  position: relative;
   width: 100%;
+  max-width: 34rem;
+  height: calc(var(--band) * 2 + var(--model) - var(--tuck) * 2);
+}
+
+.contact-model {
+  position: absolute;
+  top: calc(var(--band) - var(--tuck));
+  left: 0;
+  width: 100%;
+  height: var(--model);
+  pointer-events: none;
+}
+
+.contact-model-view {
+  position: absolute;
+  inset: 0;
+}
+
+.contact-clouds {
+  position: absolute;
+  inset: 0;
+}
+
+.contact-cloud-slot {
+  position: absolute;
+  width: var(--cloud-w);
+  animation: cloud-bob 6.5s ease-in-out infinite;
+}
+
+.contact-cloud-slot:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.contact-cloud-slot:nth-child(2) {
+  top: var(--stagger);
+  right: 0;
+  animation-duration: 7.4s;
+  animation-delay: -2.2s;
+}
+
+.contact-cloud-slot:nth-child(3) {
+  bottom: var(--stagger);
+  left: 0;
+  animation-duration: 7s;
+  animation-delay: -4.1s;
+}
+
+.contact-cloud-slot:nth-child(4) {
+  bottom: 0;
+  right: 0;
+  animation-duration: 6.2s;
+  animation-delay: -1.3s;
+}
+
+/* Desktop: the kid in the middle, a cloud at each corner, mirrored. */
+@media (min-width: 900px) {
+  .contact {
+    --cloud-w: clamp(210px, 20vw, 270px);
+    --model: clamp(420px, 60vh, 580px);
+  }
+
+  .contact-scene {
+    max-width: none;
+    height: var(--model);
+  }
+
+  .contact-model {
+    top: 0;
+    left: 50%;
+    width: calc(var(--model) * 1.4);
+    translate: -50% 0;
+  }
+
+  .contact-cloud-slot:nth-child(1) {
+    top: 4%;
+    left: 0;
+  }
+
+  .contact-cloud-slot:nth-child(2) {
+    top: 4%;
+    right: 0;
+  }
+
+  .contact-cloud-slot:nth-child(3) {
+    bottom: 6%;
+    left: 5%;
+  }
+
+  .contact-cloud-slot:nth-child(4) {
+    bottom: 6%;
+    right: 5%;
+  }
+}
+
+/* Link clouds --------------------------------------------------------------- */
+
+.contact-cloud {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 268 / 164;
+  /* The label is sized off the cloud, so a smaller cloud never splits it. */
+  container-type: inline-size;
+  transition: scale var(--t-hover) var(--ease-ui);
+}
+
+.contact-cloud-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cloud-outline {
+  fill: var(--ink);
+  stroke: var(--ink);
+  stroke-width: calc(var(--stroke) * 2);
+  transition:
+    fill var(--t-hover) var(--ease-ui),
+    stroke var(--t-hover) var(--ease-ui);
+}
+
+.cloud-fill {
+  fill: #fff;
+  transition: fill var(--t-hover) var(--ease-ui);
+}
+
+/* Sits in the cloud's broad lower body, below the top puffs. White cloud,
+   so the text stays dark whatever palette the journey is passing through. */
+.contact-cloud-body {
+  position: absolute;
+  inset: 36% 10% 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  color: var(--ink-black);
+  font-size: clamp(12px, 6.2cqi, 16px);
+  line-height: 1.2;
+  font-variation-settings: 'wght' 500;
+}
+
+.contact-cloud-body svg {
+  width: clamp(18px, 8.5cqi, 24px);
   height: auto;
 }
 
-.contact-links {
-  display: grid;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 24rem;
+/* Last resort for a handle longer than any cloud. */
+.contact-cloud-label {
+  overflow-wrap: anywhere;
 }
 
-.contact-link {
-  justify-content: center;
+@media (hover: hover) {
+  .contact-cloud:hover {
+    scale: 1.05;
+  }
+
+  .contact-cloud:hover .cloud-fill {
+    fill: var(--blush);
+  }
 }
 
-@media (min-width: 768px) {
-  .contact-links {
-    position: relative;
-    grid-template-columns: repeat(2, auto);
-    justify-content: center;
-    gap: 1rem 2.5rem;
-    max-width: none;
-  }
+/* The ring is the cloud's own outline, recoloured, rather than a box. */
+.contact-cloud:focus-visible {
+  outline: none;
+}
 
-  /* Connector lines from the butterfly out to the links; hidden on phones,
-     where the four links simply stack. */
-  .contact-links::before {
-    content: '';
-    position: absolute;
-    top: -1.5rem;
-    left: 50%;
-    width: var(--stroke);
-    height: 1.5rem;
-    background: var(--ink);
-    opacity: 0.35;
+.contact-cloud:focus-visible .cloud-outline {
+  fill: var(--focus);
+  stroke: var(--focus);
+  stroke-width: calc(var(--stroke) * 3);
+}
+
+.contact-cloud:focus-visible .cloud-fill {
+  fill: var(--blush);
+}
+
+@keyframes cloud-bob {
+  0%,
+  100% {
+    translate: 0 0;
   }
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+/* Sky ----------------------------------------------------------------------- */
+
+/* Soft, unlined clouds drifting behind the word. Kept to the slide's edges:
+   the page sits above the canvas, so anything over the kid would veil him. */
+.contact-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact-drifter {
+  position: absolute;
+  height: auto;
+  opacity: 0.75;
+  animation: cloud-drift 20s ease-in-out infinite alternate;
+}
+
+.contact-drifter .cloud-fill {
+  fill: #fff;
+}
+
+.contact-drifter:nth-child(1) {
+  top: 5%;
+  left: -3%;
+  width: clamp(140px, 18vw, 240px);
+}
+
+.contact-drifter:nth-child(2) {
+  top: 11%;
+  right: 3%;
+  width: clamp(90px, 11vw, 150px);
+  opacity: 0.6;
+  animation-duration: 16s;
+  animation-direction: alternate-reverse;
+}
+
+.contact-drifter:nth-child(3) {
+  bottom: 4%;
+  left: 10%;
+  width: clamp(100px, 13vw, 170px);
+  opacity: 0.55;
+  animation-duration: 18s;
+  animation-direction: alternate-reverse;
+}
+
+.contact-drifter:nth-child(4) {
+  bottom: 7%;
+  right: -4%;
+  width: clamp(140px, 18vw, 250px);
+  animation-duration: 24s;
+}
+
+@keyframes cloud-drift {
+  from {
+    translate: -24px 0;
+  }
+  to {
+    translate: 24px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-cloud-slot,
+  .contact-drifter {
+    animation: none;
+  }
+}
+
+/* Credit -------------------------------------------------------------------- */
+
+/* A licence term (CC BY), so it stays readable, just quiet. */
+.contact-credit {
+  max-width: 40rem;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.contact-credit a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

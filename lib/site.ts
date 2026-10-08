@@ -100,6 +100,18 @@ export const contacts = [
   { kind: 'linkedin', label: '/in/dezignwhat', href: 'https://linkedin.com/in/dezignwhat' },
 ] as const;
 
+/** The daydreamer in the contact section. CC BY 4.0, so the credit line under
+ *  the scene is a licence term, not decoration. Optimised from the Sketchfab
+ *  download with gltf-transform (meshopt + WebP). */
+export const contactModel = {
+  src: '/models/coffee-evening.glb',
+  title: 'A little coffee in the evening',
+  author: 'Tijerín Art Studio',
+  sourceUrl: 'https://sketchfab.com/3d-models/a-little-coffee-in-the-evening-638107dca49f49d0a462dee5c255e8de',
+  license: 'CC BY 4.0',
+  licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+} as const;
+
 
 /** Phone browser-bar color per palette, kept in step with tokens.css. */
 export const themeColors: Record<ThemeName, string> = {
